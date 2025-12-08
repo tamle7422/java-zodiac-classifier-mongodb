@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zodiac Prediction History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Prediction History</h1>
+
+    <div class="mb-3 text-center">
+        <a href="/" class="btn btn-primary me-2">Back to Predict</a>
+    </div>
+
+    <div class="card p-3 shadow-sm">
+        <table class="table table-striped table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Keywords</th>
+                    <th>Predicted Zodiac</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through records -->
+                <tr th:each="entry : ${records}">
+                    <td th:text="${entry.keywords} ?: 'N/A'">td>
+                    <td th:text="${entry.predictedZodiac} ?: 'Unknown'">td>
+                    <td th:text="${entry.timestamp != null ? #temporals.format(entry.timestamp, 'yyyy-MM-dd HH:mm:ss') : 'N/A'}">td>
+                tr>
+
+                <!-- Empty state -->
+                <tr th:if="${records == null or #lists.isEmpty(records)}">
+                    <td colspan="3" class="text-muted">No history available.td>
+                tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
